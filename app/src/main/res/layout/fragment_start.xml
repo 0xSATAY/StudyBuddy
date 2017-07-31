@@ -1,14 +1,73 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/startFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFF"
     android:orientation="vertical"
-    tools:context="com.deem.studybuddy.Fragments.StartFragment">
+    tools:context="com.deem.studybuddy.fragments.startCards.StartFragment">
+
+    <include layout="@layout/content_subjects_recycler" />
+
+        <LinearLayout
+            android:id="@+id/startLinearLayout"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Subjects"
+                android:textSize="25sp"
+                android:padding="10dp"
+                android:gravity="center"
+                android:textColor="#010101"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="6"
+                android:paddingLeft="16dp"
+                android:paddingRight="5dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Subject Name"
+                    android:layout_weight="4.92"
+                    android:padding="5dp"
+                    android:paddingLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Unread"
+                    android:textColor="#e53935"
+                    android:padding="5dp"
+                    android:layout_weight="0.56" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Cards"
+                    android:textColor="#43a047"
+                    android:layout_weight="0.21" />
+
+            </LinearLayout>
 
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/subjectsRecyclerView">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+</FrameLayout>

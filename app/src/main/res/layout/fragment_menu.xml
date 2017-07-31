@@ -4,7 +4,7 @@
     android:id="@+id/menuFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.deem.studybuddy.Fragments.MenuFragment">
+    tools:context="com.deem.studybuddy.fragments.mainMenu.MenuFragment">
 
     <LinearLayout
         android:id="@+id/main"

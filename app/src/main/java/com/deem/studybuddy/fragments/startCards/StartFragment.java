@@ -1,14 +1,18 @@
-package com.deem.studybuddy.Fragments;
+package com.deem.studybuddy.fragments.startCards;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.deem.studybuddy.R;
+import com.deem.studybuddy.adapters.SubjectsAdapter;
+import com.deem.studybuddy.services.DataService;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,6 +70,15 @@ public class StartFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_start, container, false);
+        RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.subjectsRecyclerView);
+        recyclerView.setHasFixedSize(true);
+
+        SubjectsAdapter subjectsAdapter = new SubjectsAdapter(DataService.getInstance().getSubjects());
+        recyclerView.setAdapter(subjectsAdapter);
+
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(llm);
 
         return view;
     }

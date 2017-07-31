@@ -1,4 +1,4 @@
-package com.deem.studybuddy.Fragments;
+package com.deem.studybuddy.fragments.addCards;
 
 import android.content.Context;
 import android.net.Uri;

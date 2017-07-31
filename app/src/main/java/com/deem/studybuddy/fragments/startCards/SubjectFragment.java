@@ -1,4 +1,4 @@
-package com.deem.studybuddy.Fragments;
+package com.deem.studybuddy.fragments.startCards;
 
 import android.content.Context;
 import android.net.Uri;
@@ -7,30 +7,34 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.deem.studybuddy.R;
+import com.deem.studybuddy.adapters.SubjectsAdapter;
+import com.deem.studybuddy.model.Subjects;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link SeeAllFragment.OnSeeAllFragmentInteractionListener} interface
+ * {@link SubjectFragment.OnSubjectFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link SeeAllFragment#newInstance} factory method to
+ * Use the {@link SubjectFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SeeAllFragment extends Fragment {
+public class SubjectFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String SUBJECT = "subject";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    private OnSeeAllFragmentInteractionListener mListener;
+    private OnSubjectFragmentInteractionListener mListener;
 
-    public SeeAllFragment() {
+    public SubjectFragment() {
         // Required empty public constructor
     }
 
@@ -39,15 +43,13 @@ public class SeeAllFragment extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SeeAllFragment.
+     * @return A new instance of fragment SubjectFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SeeAllFragment newInstance(String param1, String param2) {
-        SeeAllFragment fragment = new SeeAllFragment();
+    public static SubjectFragment newInstance(String param1) {
+        SubjectFragment fragment = new SubjectFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(SUBJECT,param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -65,21 +67,25 @@ public class SeeAllFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_see_all, container, false);
+        View v = inflater.inflate(R.layout.fragment_subject, container, false);
+        TextView t = v.findViewById(R.id.subjectTitle);
+        t.setText(getArguments().getString(SUBJECT));
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onSeeAllFragmentInteraction(uri);
+            mListener.onSubjectFragmentInteraction(uri);
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnSeeAllFragmentInteractionListener) {
-            mListener = (OnSeeAllFragmentInteractionListener) context;
+        if (context instanceof OnSubjectFragmentInteractionListener) {
+            mListener = (OnSubjectFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -102,8 +108,8 @@ public class SeeAllFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnSeeAllFragmentInteractionListener {
+    public interface OnSubjectFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onSeeAllFragmentInteraction(Uri uri);
+        void onSubjectFragmentInteraction(Uri uri);
     }
 }

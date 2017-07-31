@@ -1,36 +1,43 @@
-package com.deem.studybuddy.Activities;
+package com.deem.studybuddy.activities;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.net.Uri;
-import android.support.constraint.ConstraintLayout;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.deem.studybuddy.Fragments.AddCardsFragment;
-import com.deem.studybuddy.Fragments.MenuFragment;
-import com.deem.studybuddy.Fragments.SeeAllFragment;
-import com.deem.studybuddy.Fragments.SettingsFragment;
-import com.deem.studybuddy.Fragments.StartFragment;
+import com.deem.studybuddy.fragments.addCards.AddCardsFragment;
+import com.deem.studybuddy.fragments.mainMenu.MenuFragment;
+import com.deem.studybuddy.fragments.seeAllCards.SeeAllFragment;
+import com.deem.studybuddy.fragments.settings.SettingsFragment;
+import com.deem.studybuddy.fragments.startCards.StartFragment;
 import com.deem.studybuddy.R;
+import com.deem.studybuddy.fragments.startCards.SubjectFragment;
+import com.deem.studybuddy.model.Subjects;
 
 public class MainActivity extends Activity implements MenuFragment.onMenuFragmentInteractionListener,
         StartFragment.startFragmentInteractionListener,
         SettingsFragment.OnSettingsFragmentInteractionListener,
         AddCardsFragment.OnAddCardsFragmentInteractionListener,
-        SeeAllFragment.OnSeeAllFragmentInteractionListener{
+        SeeAllFragment.OnSeeAllFragmentInteractionListener,
+        SubjectFragment.OnSubjectFragmentInteractionListener{
 
 
+    private static MainActivity mainActivity;
+
+    public static MainActivity getMainActivity() {
+        return mainActivity;
+    }
+
+    private static void setMainActivity(MainActivity mainActivity) {
+        MainActivity.mainActivity = mainActivity;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MainActivity.setMainActivity(this);
         FragmentManager fm = getFragmentManager();
         Fragment f = fm.findFragmentById(R.id.menuFragment);
         if (f == null) {
@@ -38,18 +45,6 @@ public class MainActivity extends Activity implements MenuFragment.onMenuFragmen
             fm.beginTransaction().add(R.id.menuFragment,f).commit();
 
         }
-
-       /*
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fm = getFragmentManager();
-                Fragment f = fm.findFragmentById(R.id.startFragment);
-                StartFragment sf = new StartFragment();
-                getFragmentManager().beginTransaction().replace(R.id.startFragment,sf).addToBackStack(null).commit();
-            }
-        };
-        start.setOnClickListener(listener);*/
     }
 
     public void loadStartFragment() {
@@ -70,6 +65,10 @@ public class MainActivity extends Activity implements MenuFragment.onMenuFragmen
     public void loadSeeAllCardsFragment() {
         SeeAllFragment saf = new SeeAllFragment();
         getFragmentManager().beginTransaction().replace(R.id.menuFragment,saf).addToBackStack(null).commit();
+    }
+
+    public void loadSubjectCardsScreen(Subjects selectedSubject) {
+        getFragmentManager().beginTransaction().replace(R.id.startFragment,new SubjectFragment().newInstance(selectedSubject.getSubjectTitle())).addToBackStack(null).commit();
     }
 
     @Override
@@ -94,6 +93,11 @@ public class MainActivity extends Activity implements MenuFragment.onMenuFragmen
 
     @Override
     public void onSeeAllFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onSubjectFragmentInteraction(Uri uri) {
 
     }
 }
