@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import com.deem.studybuddy.R;
 import com.deem.studybuddy.activities.MainActivity;
 import com.deem.studybuddy.holders.SubjectsViewHolder;
-import com.deem.studybuddy.model.Subjects;
+import com.deem.studybuddy.model.Subject;
 
 import java.util.ArrayList;
 
@@ -16,11 +16,11 @@ import java.util.ArrayList;
  * Created by wangdiam on 7/31/17.
  */
 
-public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsViewHolder> {
+public class SubjectsCardAdapter extends RecyclerView.Adapter<SubjectsViewHolder> {
 
-    private ArrayList<Subjects> subjects;
+    private ArrayList<Subject> subjects;
 
-    public SubjectsAdapter(ArrayList<Subjects> subjects) {
+    public SubjectsCardAdapter(ArrayList<Subject> subjects) {
         this.subjects = subjects;
     }
 
@@ -33,7 +33,9 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsViewHolder> {
 
     @Override
     public void onBindViewHolder(SubjectsViewHolder holder, final int position) {
-        final Subjects SASubject = subjects.get(position);
+        final Subject SASubject = subjects.get(position);
+
+
         holder.updateUI(SASubject);
 
         int p = position;
@@ -42,6 +44,7 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsViewHolder> {
             @Override
             public void onClick(View view) {
                 int po = position;
+
                 MainActivity.getMainActivity().loadSubjectCardsScreen(SASubject);
             }
         });

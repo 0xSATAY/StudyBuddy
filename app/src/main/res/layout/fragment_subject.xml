@@ -1,19 +1,31 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF"
+    android:orientation="vertical"
+    android:id="@+id/startStudyFrame"
     tools:context="com.deem.studybuddy.fragments.startCards.SubjectFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="@string/hello_blank_fragment"
         android:id="@+id/subjectTitle"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:gravity="center"
-        android:textSize="30dp"
+        android:text="default subject title"
+        android:textColor="#000"
+        android:textSize="30sp"
         android:textStyle="bold"
-        android:textColor="#000"/>
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <include layout="@layout/card_in_subject"/>
+
+    </LinearLayout>
+
+
 
 </FrameLayout>

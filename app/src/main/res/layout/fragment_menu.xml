@@ -124,7 +124,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/seeAllBtn"
+                android:id="@+id/addDeck"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginBottom="8dp"
@@ -138,16 +138,16 @@
                 android:drawableTop="@drawable/ic_assignment_white_24dp"
                 android:elevation="24dp"
                 android:paddingTop="20dp"
-                android:text="See All"
+                android:text="Add Deck"
                 android:textColor="#FFF"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/addCardsBtn"
-                app:layout_constraintRight_toLeftOf="@+id/settingsBtn"
+                app:layout_constraintRight_toLeftOf="@+id/seeAllBtn"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/settingsBtn"
+                android:id="@+id/seeAllBtn"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginBottom="8dp"
@@ -160,7 +160,7 @@
                 android:drawableTop="@drawable/ic_settings_white_24dp"
                 android:elevation="24dp"
                 android:paddingTop="20dp"
-                android:text="Settings"
+                android:text="See All"
                 android:textColor="#FFF"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"

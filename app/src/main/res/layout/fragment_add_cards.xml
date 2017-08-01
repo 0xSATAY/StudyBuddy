@@ -2,12 +2,121 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.deem.studybuddy.fragments.addCards.AddCardsFragment">
+    tools:context="com.deem.studybuddy.fragments.addCards.AddCardsFragment"
+    >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="526dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/subjectTitleTextLinearLayout"
+            android:backgroundTint="#000">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Card"
+                android:textSize="25sp"
+                android:padding="10dp"
+                android:gravity="center"
+                android:textColor="#010101"
+                android:textStyle="bold"
+                android:id="@+id/addCardTextView"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/subjectsDropDownLinearLayout"
+            android:layout_below="@+id/subjectTitleTextLinearLayout"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Subject:"
+                android:gravity="center"
+                android:textColor="#000"
+                android:textSize="20sp"/>
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/subjectsDropDown"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_below="@id/addCardTextView"
+                >
+            </Spinner>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_below="@id/subjectsDropDownLinearLayout">
+
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Front"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_below="@+id/subjectsDropDownLinearLayout"
+                        android:id="@+id/frontTextField"
+                        android:layout_centerHorizontal="true" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Back"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_below="@+id/frontTextField"
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/backTextField" />
+
+
+                </LinearLayout>
+
+            </android.support.v4.widget.NestedScrollView>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/addCardBtn"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:text="ADD CARD"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:textColor="#FFF"
+        android:background="#ff1744"
+        android:layout_gravity="bottom"/>
 
 </FrameLayout>

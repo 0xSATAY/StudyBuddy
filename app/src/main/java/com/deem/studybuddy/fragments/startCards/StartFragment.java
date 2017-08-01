@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.deem.studybuddy.R;
-import com.deem.studybuddy.adapters.SubjectsAdapter;
+import com.deem.studybuddy.adapters.SubjectsCardAdapter;
 import com.deem.studybuddy.services.DataService;
 
 /**
@@ -73,8 +73,8 @@ public class StartFragment extends Fragment{
         RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.subjectsRecyclerView);
         recyclerView.setHasFixedSize(true);
 
-        SubjectsAdapter subjectsAdapter = new SubjectsAdapter(DataService.getInstance().getSubjects());
-        recyclerView.setAdapter(subjectsAdapter);
+        SubjectsCardAdapter subjectsCardAdapter = new SubjectsCardAdapter(DataService.getInstance().getSubjects());
+        recyclerView.setAdapter(subjectsCardAdapter);
 
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);

@@ -6,13 +6,21 @@
     android:layout_height="match_parent"
     android:background="#FFF"
     tools:context="com.deem.studybuddy.activities.MainActivity">
-
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/menuFragment"
-        android:orientation="vertical">
-    </FrameLayout>
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/menuFragment"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteY="8dp"
+            tools:layout_editor_absoluteX="8dp">
+        </FrameLayout>
+
+    </LinearLayout>
+
 
 
 </android.support.constraint.ConstraintLayout>

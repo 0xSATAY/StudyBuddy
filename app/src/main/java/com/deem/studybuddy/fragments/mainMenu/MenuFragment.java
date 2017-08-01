@@ -31,7 +31,7 @@ public class MenuFragment extends Fragment implements  View.OnClickListener{
 
     LinearLayout main;
     ConstraintLayout start;
-    Button addCardsBtn, seeAllCardsBtn,settingsBtn;
+    Button addCardsBtn, seeAllCardsBtn,addDeckBtn;
     TextView cardsStudied;
 
     // TODO: Rename and change types of parameters
@@ -81,7 +81,7 @@ public class MenuFragment extends Fragment implements  View.OnClickListener{
         start = view.findViewById(R.id.startConstraint);
         addCardsBtn = view.findViewById(R.id.addCardsBtn);
         seeAllCardsBtn = view.findViewById(R.id.seeAllBtn);
-        settingsBtn = view.findViewById(R.id.settingsBtn);
+        addDeckBtn = view.findViewById(R.id.addDeck);
         cardsStudied = view.findViewById(R.id.cardsStudiedTextView);
         final MainActivity mainActivity = (MainActivity)getActivity();
         start.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +90,7 @@ public class MenuFragment extends Fragment implements  View.OnClickListener{
                 mainActivity.loadStartFragment();
             }
         });
-        settingsBtn.setOnClickListener(new View.OnClickListener() {
+        addDeckBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mainActivity.loadSettingsFragment();

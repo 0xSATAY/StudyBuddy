@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 import com.deem.studybuddy.R;
-import com.deem.studybuddy.model.Subjects;
+import com.deem.studybuddy.model.Subject;
 
 /**
  * Created by wangdiam on 7/31/17.
@@ -23,10 +23,10 @@ public class SubjectsViewHolder extends RecyclerView.ViewHolder {
         this.totalNumberOfCards = (TextView)itemView.findViewById(R.id.totalNumberOfCards);
     }
 
-    public void updateUI(Subjects subjects) {
-        subjectTitle.setText(subjects.getSubjectTitle());
-        numberOfCardsStudied.setText(subjects.getNumberOfCardsStudied());
-        totalNumberOfCards.setText(subjects.getTotalNumberOfCards());
+    public void updateUI(Subject subject) {
+        subjectTitle.setText(subject.getSubjectTitle());
+        numberOfCardsStudied.setText(subject.getNumberOfCardsStudied());
+        totalNumberOfCards.setText(subject.getTotalNumberOfCards());
     }
 
 }

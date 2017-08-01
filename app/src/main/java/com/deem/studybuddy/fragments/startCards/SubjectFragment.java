@@ -10,8 +10,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.deem.studybuddy.R;
-import com.deem.studybuddy.adapters.SubjectsAdapter;
-import com.deem.studybuddy.model.Subjects;
+import com.deem.studybuddy.model.Question;
+import com.deem.studybuddy.services.DataService;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,9 +69,18 @@ public class SubjectFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        ArrayList<Question> questions = DataService.getInstance().getQuestions();
+
         View v = inflater.inflate(R.layout.fragment_subject, container, false);
-        TextView t = v.findViewById(R.id.subjectTitle);
-        t.setText(getArguments().getString(SUBJECT));
+        TextView subjectTitle = v.findViewById(R.id.subjectTitle);
+        subjectTitle.setText(getArguments().getString(SUBJECT));
+        TextView question = v.findViewById(R.id.QuestionText);
+        if (DataService.getInstance().getQuestion(SUBJECT) == "") {
+            question.setText("You have not created any cards yet!");
+        } else {
+            question.setText(DataService.getInstance().getQuestion(SUBJECT));
+        }
+
 
         return v;
     }

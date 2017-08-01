@@ -4,9 +4,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.deem.studybuddy.R;
 
@@ -27,6 +32,10 @@ public class AddCardsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private EditText front,back;
+    private Spinner chooseSubject;
+    private Button addCardBtn;
 
     private OnAddCardsFragmentInteractionListener mListener;
 
@@ -65,7 +74,27 @@ public class AddCardsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_cards, container, false);
+        final View v = inflater.inflate(R.layout.fragment_add_cards, container, false);
+
+        chooseSubject = v.findViewById(R.id.subjectsDropDown);
+        addCardBtn = v.findViewById(R.id.addCardBtn);
+        front = v.findViewById(R.id.frontTextField);
+        back = v.findViewById(R.id.backTextField);
+
+        addCardBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (front.getText() != null && back.getText() != null && chooseSubject.getSelectedItem() != null) {
+                    String frontText = front.getText().toString();
+                    String backText = back.getText().toString();
+                    String chosenOption = chooseSubject.getSelectedItem().toString();
+                } else {
+                    Toast.makeText(getActivity(),"Please enter all fields!",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        //TODO create adapter for spinner
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

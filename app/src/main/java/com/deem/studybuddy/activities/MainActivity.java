@@ -5,19 +5,22 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 import com.deem.studybuddy.fragments.addCards.AddCardsFragment;
+import com.deem.studybuddy.fragments.addDeck.AddDeckFragment;
 import com.deem.studybuddy.fragments.mainMenu.MenuFragment;
 import com.deem.studybuddy.fragments.seeAllCards.SeeAllFragment;
-import com.deem.studybuddy.fragments.settings.SettingsFragment;
 import com.deem.studybuddy.fragments.startCards.StartFragment;
 import com.deem.studybuddy.R;
 import com.deem.studybuddy.fragments.startCards.SubjectFragment;
-import com.deem.studybuddy.model.Subjects;
+import com.deem.studybuddy.model.Subject;
+
 
 public class MainActivity extends Activity implements MenuFragment.onMenuFragmentInteractionListener,
         StartFragment.startFragmentInteractionListener,
-        SettingsFragment.OnSettingsFragmentInteractionListener,
+        AddDeckFragment.OnSettingsFragmentInteractionListener,
         AddCardsFragment.OnAddCardsFragmentInteractionListener,
         SeeAllFragment.OnSeeAllFragmentInteractionListener,
         SubjectFragment.OnSubjectFragmentInteractionListener{
@@ -43,8 +46,14 @@ public class MainActivity extends Activity implements MenuFragment.onMenuFragmen
         if (f == null) {
             f = new MenuFragment();
             fm.beginTransaction().add(R.id.menuFragment,f).commit();
-
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_scrolling, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     public void loadStartFragment() {
@@ -53,7 +62,7 @@ public class MainActivity extends Activity implements MenuFragment.onMenuFragmen
     }
 
     public void loadSettingsFragment() {
-        SettingsFragment sf = new SettingsFragment();
+        AddDeckFragment sf = new AddDeckFragment();
         getFragmentManager().beginTransaction().replace(R.id.menuFragment,sf).addToBackStack(null).commit();
     }
 
@@ -67,8 +76,8 @@ public class MainActivity extends Activity implements MenuFragment.onMenuFragmen
         getFragmentManager().beginTransaction().replace(R.id.menuFragment,saf).addToBackStack(null).commit();
     }
 
-    public void loadSubjectCardsScreen(Subjects selectedSubject) {
-        getFragmentManager().beginTransaction().replace(R.id.startFragment,new SubjectFragment().newInstance(selectedSubject.getSubjectTitle())).addToBackStack(null).commit();
+    public void loadSubjectCardsScreen(Subject selectedSubject) {
+        getFragmentManager().beginTransaction().replace(R.id.menuFragment,new SubjectFragment().newInstance(selectedSubject.getSubjectTitle())).addToBackStack(null).commit();
     }
 
     @Override
