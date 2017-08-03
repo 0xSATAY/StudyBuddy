@@ -1,19 +1,24 @@
 package com.deem.studybuddy.fragments.mainMenu;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.constraint.ConstraintLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.deem.studybuddy.activities.MainActivity;
 import com.deem.studybuddy.R;
+import com.deem.studybuddy.database.DatabaseHandler;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,6 +82,10 @@ public class MenuFragment extends Fragment implements  View.OnClickListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragmen//
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
+        DatabaseHandler dbh = new DatabaseHandler(getContext());
+        SQLiteDatabase db = dbh.getWritableDatabase();
+        String checkEmptyQuery = "SELECT * FROM cards";
+        final Cursor cursor = db.rawQuery(checkEmptyQuery,null);
         main = view.findViewById(R.id.main);
         start = view.findViewById(R.id.startConstraint);
         addCardsBtn = view.findViewById(R.id.addCardsBtn);
@@ -87,7 +96,12 @@ public class MenuFragment extends Fragment implements  View.OnClickListener{
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivity.loadStartFragment();
+                if (cursor.getCount() > 0) {
+                    mainActivity.loadStartFragment();
+                } else {
+                    Toast.makeText(getActivity(),"You do not have any cards",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"To begin, add a deck first then add cards to deck",Toast.LENGTH_LONG).show();
+                }
             }
         });
         addDeckBtn.setOnClickListener(new View.OnClickListener() {

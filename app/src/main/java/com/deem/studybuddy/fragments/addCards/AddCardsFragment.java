@@ -5,15 +5,20 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.deem.studybuddy.R;
+import com.deem.studybuddy.database.DatabaseHandler;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,20 +85,34 @@ public class AddCardsFragment extends Fragment {
         addCardBtn = v.findViewById(R.id.addCardBtn);
         front = v.findViewById(R.id.frontTextField);
         back = v.findViewById(R.id.backTextField);
+        ArrayAdapter<String> adapter;
+        ArrayList<String> subjects = new DatabaseHandler(this.getContext()).retrieveSubjects();
+
+        adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,subjects);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        chooseSubject.setAdapter(adapter);
 
         addCardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (front.getText() != null && back.getText() != null && chooseSubject.getSelectedItem() != null) {
+                if (!front.getText().toString().matches("") && !back.getText().toString().matches("") && chooseSubject.getSelectedItem() != null) {
                     String frontText = front.getText().toString();
                     String backText = back.getText().toString();
                     String chosenOption = chooseSubject.getSelectedItem().toString();
+
+                    DatabaseHandler db = new DatabaseHandler(getContext());
+                    db.addCard(chosenOption,frontText,backText);
+                    front.setText(null);
+                    front.setHint("Front");
+                    back.setText(null);
+                    back.setHint("Back");
+
+                    Toast.makeText(getActivity(),"Card has been added to the database!",Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity(),"Please enter all fields!",Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        //TODO create adapter for spinner
         return v;
     }
 

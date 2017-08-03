@@ -1,19 +1,25 @@
 package com.deem.studybuddy.fragments.startCards;
 
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.deem.studybuddy.R;
+import com.deem.studybuddy.activities.MainActivity;
 import com.deem.studybuddy.model.Question;
 import com.deem.studybuddy.services.DataService;
 
 import java.util.ArrayList;
+
+import static android.R.attr.button;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,16 +75,31 @@ public class SubjectFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ArrayList<Question> questions = DataService.getInstance().getQuestions();
+        ArrayList<Question> questions = DataService.getInstance().getQuestions(getArguments().getString(SUBJECT));
 
         View v = inflater.inflate(R.layout.fragment_subject, container, false);
         TextView subjectTitle = v.findViewById(R.id.subjectTitle);
         subjectTitle.setText(getArguments().getString(SUBJECT));
-        TextView question = v.findViewById(R.id.QuestionText);
-        if (DataService.getInstance().getQuestion(SUBJECT) == "") {
+        TextView question = v.findViewById(R.id.cardFrontTextView);
+        final MainActivity mainActivity = MainActivity.getMainActivity();
+        final TextView answer = v.findViewById(R.id.cardBackTextView);
+        final Question randomQuestion = DataService.getInstance().getRandomQuestion(questions);
+        final Button reveal = v.findViewById(R.id.revealBtn);
+
+        if (randomQuestion.getQuestion() == "") {
             question.setText("You have not created any cards yet!");
         } else {
-            question.setText(DataService.getInstance().getQuestion(SUBJECT));
+            question.setText(randomQuestion.getQuestion());
+
+            reveal.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    answer.setText(randomQuestion.getAnswer());
+                    reveal.setBackgroundColor(0xFF01579b);
+                    reveal.setText("Next Card");
+
+                }
+            });
         }
 
 

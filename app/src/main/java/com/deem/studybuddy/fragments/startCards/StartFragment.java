@@ -74,11 +74,12 @@ public class StartFragment extends Fragment{
         recyclerView.setHasFixedSize(true);
 
         SubjectsCardAdapter subjectsCardAdapter = new SubjectsCardAdapter(DataService.getInstance().getSubjects());
-        recyclerView.setAdapter(subjectsCardAdapter);
+
 
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
+        recyclerView.setAdapter(subjectsCardAdapter);
 
         return view;
     }

@@ -7,25 +7,121 @@
     android:id="@+id/startStudyFrame"
     tools:context="com.deem.studybuddy.fragments.startCards.SubjectFragment">
 
-    <TextView
-        android:id="@+id/subjectTitle"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:gravity="center"
-        android:text="default subject title"
-        android:textColor="#000"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_height="match_parent"
+        android:id="@+id/subjectMainLayout">
 
-        <include layout="@layout/card_in_subject"/>
+        <TextView
+            android:id="@+id/subjectTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="default subject title"
+            android:textColor="#000"
+            android:textSize="25sp"
+            android:padding="10dp"
+            android:textStyle="bold"
+            />
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_gravity="center"
+            android:layout_below="@+id/subjectTitle"
+            android:orientation="vertical"
+            android:id="@+id/actualCard"
+            android:weightSum="2"
+            android:layout_above="@+id/revealBtn">
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Question:"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:padding="10dp"
+                    android:id="@+id/subjectQuestionText"/>
+
+                <android.support.v4.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/subjectQuestionText">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingLeft="20dp"
+                        android:textSize="23sp"
+                        android:textColor="#000"
+                        android:textAlignment="center"
+                        android:layout_below="@+id/subjectQuestionText"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentBottom="true"
+                        android:id="@+id/cardFrontTextView"/>
+
+                </android.support.v4.widget.NestedScrollView>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Answer:"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:padding="10dp"
+                    android:id="@+id/subjectAnswerText"/>
+
+                <android.support.v4.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/subjectAnswerText">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingLeft="20dp"
+                        android:textSize="23sp"
+                        android:textAlignment="center"
+                        android:textColor="#000"
+                        android:layout_below="@+id/subjectAnswerText"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentBottom="true"
+                        android:id="@+id/cardBackTextView"/>
+
+                </android.support.v4.widget.NestedScrollView>
+
+
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:background="#66bb6a"
+            android:text="Reveal answer"
+            android:textSize="20sp"
+            android:textColor="#FFF"
+            android:id="@+id/revealBtn"
+            />
+
+    </RelativeLayout>
 
 
 </FrameLayout>

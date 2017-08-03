@@ -4,10 +4,63 @@
     android:layout_height="match_parent"
     tools:context="com.deem.studybuddy.fragments.addDeck.AddDeckFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Add Deck" />
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Deck"
+            android:padding="10dp"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:id="@+id/addDeckTextView"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/addDeckTextView"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Deck Name:"
+                android:id="@+id/deckNameTextView"
+                android:textSize="20sp"
+                android:textColor="#000"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="20dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:layout_margin="20dp"
+                android:paddingBottom="20dp"
+                android:hint="Deck Name"
+                android:layout_toRightOf="@id/deckNameTextView"
+                android:id="@+id/deckNameEditText"/>
+
+        </RelativeLayout>
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:background="#29b6f6"
+            android:text="Add deck"
+            android:textColor="#FFF"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:id="@+id/addDeckButton"
+            />
+    </RelativeLayout>
 
 </FrameLayout>

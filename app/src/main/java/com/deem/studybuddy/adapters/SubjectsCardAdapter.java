@@ -33,10 +33,11 @@ public class SubjectsCardAdapter extends RecyclerView.Adapter<SubjectsViewHolder
 
     @Override
     public void onBindViewHolder(SubjectsViewHolder holder, final int position) {
-        final Subject SASubject = subjects.get(position);
+        final String SASubject = subjects.get(position).getSubjectTitle();
+        final Subject subject = subjects.get(position);
 
 
-        holder.updateUI(SASubject);
+        holder.updateUI(subject);
 
         int p = position;
 

@@ -76,8 +76,8 @@ public class MainActivity extends Activity implements MenuFragment.onMenuFragmen
         getFragmentManager().beginTransaction().replace(R.id.menuFragment,saf).addToBackStack(null).commit();
     }
 
-    public void loadSubjectCardsScreen(Subject selectedSubject) {
-        getFragmentManager().beginTransaction().replace(R.id.menuFragment,new SubjectFragment().newInstance(selectedSubject.getSubjectTitle())).addToBackStack(null).commit();
+    public void loadSubjectCardsScreen(String selectedSubject) {
+        getFragmentManager().beginTransaction().replace(R.id.menuFragment,new SubjectFragment().newInstance(selectedSubject)).addToBackStack(null).commit();
     }
 
     @Override

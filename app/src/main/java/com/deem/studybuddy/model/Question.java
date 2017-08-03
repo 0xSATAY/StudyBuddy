@@ -6,15 +6,23 @@ package com.deem.studybuddy.model;
 
 public class Question {
     private String question;
-    private String subject;
+    private String answer;
 
-    public Question(String question, String subject) {
+    public void setQuestion(String question) {
         this.question = question;
-        this.subject = subject;
     }
 
-    public String getStringSubject() {
-        return subject;
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public Question(String question, String answer) {
+        this.question = question;
+        this.answer = answer;
+    }
+
+    public String getAnswer() {
+        return answer;
     }
 
     public String getQuestion() {

@@ -7,8 +7,12 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.deem.studybuddy.R;
+import com.deem.studybuddy.database.DatabaseHandler;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,6 +70,27 @@ public class AddDeckFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_deck,container,false);
+        Button button = view.findViewById(R.id.addDeckButton);
+        final EditText editText = view.findViewById(R.id.deckNameEditText);
+        final DatabaseHandler db = new DatabaseHandler(getContext());
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!editText.getText().toString().matches("")) {
+                    if (db.addDeck(editText.getText().toString())) {
+                        editText.setHint("");
+                        editText.setText("");
+                        Toast.makeText(getActivity(),"Deck has been added!",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(),"Deck already exists!",Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+                    Toast.makeText(getActivity(),"Please enter your deck name!",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         return view;
     }
 
