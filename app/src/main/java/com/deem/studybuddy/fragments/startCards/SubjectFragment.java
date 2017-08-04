@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +16,11 @@ import android.widget.TextView;
 import com.deem.studybuddy.R;
 import com.deem.studybuddy.activities.MainActivity;
 import com.deem.studybuddy.model.Question;
+import com.deem.studybuddy.model.Subject;
 import com.deem.studybuddy.services.DataService;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import static android.R.attr.button;
 
@@ -36,10 +39,16 @@ public class SubjectFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private static final String SUBJECT = "subject";
 
+
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private static SubjectFragment subjectFragment;
 
+    public Fragment getSubjectFragment(){
+        return subjectFragment;
+    }
     private OnSubjectFragmentInteractionListener mListener;
 
     public SubjectFragment() {
@@ -71,37 +80,62 @@ public class SubjectFragment extends Fragment {
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ArrayList<Question> questions = DataService.getInstance().getQuestions(getArguments().getString(SUBJECT));
 
         View v = inflater.inflate(R.layout.fragment_subject, container, false);
-        TextView subjectTitle = v.findViewById(R.id.subjectTitle);
-        subjectTitle.setText(getArguments().getString(SUBJECT));
-        TextView question = v.findViewById(R.id.cardFrontTextView);
+
+
+        final String subjectname = getArguments().getString(SUBJECT);
+        final TextView subjectTitle = v.findViewById(R.id.subjectTitle);
+        final TextView question = v.findViewById(R.id.cardFrontTextView);
         final MainActivity mainActivity = MainActivity.getMainActivity();
         final TextView answer = v.findViewById(R.id.cardBackTextView);
-        final Question randomQuestion = DataService.getInstance().getRandomQuestion(questions);
+        ArrayList<Question> questions;
         final Button reveal = v.findViewById(R.id.revealBtn);
 
-        if (randomQuestion.getQuestion() == "") {
-            question.setText("You have not created any cards yet!");
-        } else {
-            question.setText(randomQuestion.getQuestion());
+        subjectTitle.setText(subjectname);
 
+        if (mainActivity.getCurrentSubject() == null || !mainActivity.getCurrentSubject().matches(subjectname)) {
+            Log.v("Test","First if");
+            mainActivity.setCurrentSubjectDeck(DataService.getInstance().getQuestions(subjectname));
+            mainActivity.setCurrentSubject(subjectname);
+        }
+        if (mainActivity.getCurrentSubjectDeck(subjectname) == null) {
+            mainActivity.setCurrentSubjectDeck(DataService.getInstance().getQuestions(subjectname));
+            questions = mainActivity.getCurrentSubjectDeck(subjectname);
+        } else {
+            questions = mainActivity.getCurrentSubjectDeck(subjectname);
+        }
+
+        final Pair<Question, ArrayList<Question>> randomQuestion = getRandomQuestion(questions);
+
+        if (randomQuestion == null){
+            mainActivity.setCurrentSubjectDeck(DataService.getInstance().getQuestions(subjectname));
+            mainActivity.loadMoreCards(getArguments().getString(SUBJECT));
+        } else {
+            question.setText(randomQuestion.first.getQuestion());
             reveal.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    answer.setText(randomQuestion.getAnswer());
+                    answer.setText(randomQuestion.first.getAnswer());
                     reveal.setBackgroundColor(0xFF01579b);
                     reveal.setText("Next Card");
+
+                    reveal.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            mainActivity.setCurrentSubjectDeck(randomQuestion.second);
+                            mainActivity.loadMoreCards(getArguments().getString(SUBJECT));
+                        }
+                    });
 
                 }
             });
         }
-
 
         return v;
     }
@@ -122,6 +156,26 @@ public class SubjectFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+
+    public Pair<Question,ArrayList<Question>> getRandomQuestion(ArrayList<Question> questions) {
+
+        Random randomGenerator = new Random();
+        Pair<Question,ArrayList<Question>> quesPair;
+        Question question;
+        if (questions == null) {
+            return null;
+        } else if (questions.size() < 1) {
+            return null;
+        } else {
+            int index = randomGenerator.nextInt(questions.size());
+            question = questions.get(index);
+            questions.remove(index);
+        }
+        quesPair = new Pair<>(question,questions);
+
+        return quesPair;
     }
 
     @Override

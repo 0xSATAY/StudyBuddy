@@ -17,9 +17,6 @@ import java.util.StringTokenizer;
 
 public class DataService {
     private static DataService ourInstance = new DataService();
-    private ArrayList<Question> questionArrayList;
-    private ArrayList<Subject> subjectArrayList;
-    private String ques;
 
     public DataService() {
     }
@@ -31,7 +28,7 @@ public class DataService {
 
     public ArrayList<Subject> getSubjects() {
         final MainActivity mainActivity = MainActivity.getMainActivity();
-        DatabaseHandler db = new DatabaseHandler(mainActivity.getApplicationContext());
+        DatabaseHandler db =  DatabaseHandler.getInstance(mainActivity.getApplicationContext());
         ArrayList<Subject> list = db.retrieveSubjectsForAdapter();
         db.close();
         return list;
@@ -39,7 +36,7 @@ public class DataService {
 
     public ArrayList<Question> getQuestions(String subjectName) {
         final MainActivity mainActivity = MainActivity.getMainActivity();
-        DatabaseHandler dbh = new DatabaseHandler(mainActivity);
+        DatabaseHandler dbh = DatabaseHandler.getInstance(mainActivity);
         SQLiteDatabase db = dbh.getWritableDatabase();
         String retrieveQuery = String.format("SELECT * FROM CARDS WHERE subject = '%s'",subjectName);
         Cursor cursor = db.rawQuery(retrieveQuery,null);
@@ -55,25 +52,6 @@ public class DataService {
         return questions;
     }
 
-    public Question getRandomQuestion(ArrayList<Question> questions) {
 
-        Random randomGenerator = new Random();
-        Question question = new Question("","");
-        if (questions == null) {
-            return question;
-        } else if (questions.size() < 1) {
-            return question;
-        } else {
-            int index = randomGenerator.nextInt(questions.size());
-            question = questions.get(index);
-            questions.remove(index);
-            ques = question.getQuestion();
-        }
-        if (ques == null) {
-            return question;
-        } else {
-            return question;
-        }
-    }
 
 }

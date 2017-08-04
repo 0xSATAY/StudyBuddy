@@ -3,6 +3,7 @@ package com.deem.studybuddy.activities;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,7 +16,10 @@ import com.deem.studybuddy.fragments.seeAllCards.SeeAllFragment;
 import com.deem.studybuddy.fragments.startCards.StartFragment;
 import com.deem.studybuddy.R;
 import com.deem.studybuddy.fragments.startCards.SubjectFragment;
+import com.deem.studybuddy.model.Question;
 import com.deem.studybuddy.model.Subject;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends Activity implements MenuFragment.onMenuFragmentInteractionListener,
@@ -28,12 +32,28 @@ public class MainActivity extends Activity implements MenuFragment.onMenuFragmen
 
     private static MainActivity mainActivity;
 
+    public static ArrayList<Question> currentSubjectDeck;
+    public static String currentSubject;
+
+    public String getCurrentSubject() {
+        return currentSubject;
+    }
+
+    public void setCurrentSubject(String curSub) {
+        currentSubject = curSub;
+    }
+
+
     public static MainActivity getMainActivity() {
         return mainActivity;
     }
 
     private static void setMainActivity(MainActivity mainActivity) {
         MainActivity.mainActivity = mainActivity;
+    }
+
+    public void setCurrentSubjectDeck(ArrayList<Question> list) {
+        currentSubjectDeck = list;
     }
 
     @Override
@@ -80,6 +100,11 @@ public class MainActivity extends Activity implements MenuFragment.onMenuFragmen
         getFragmentManager().beginTransaction().replace(R.id.menuFragment,new SubjectFragment().newInstance(selectedSubject)).addToBackStack(null).commit();
     }
 
+    public void loadMoreCards(String subjectName) {
+        FragmentManager fm = getMainActivity().getFragmentManager();
+        fm.popBackStack();
+        getFragmentManager().beginTransaction().replace(R.id.menuFragment,new SubjectFragment().newInstance(subjectName)).addToBackStack(null).commit();
+    }
     @Override
     public void onMenuFragmentInteraction(Uri uri) {
 
@@ -108,5 +133,9 @@ public class MainActivity extends Activity implements MenuFragment.onMenuFragmen
     @Override
     public void onSubjectFragmentInteraction(Uri uri) {
 
+    }
+
+    public ArrayList<Question> getCurrentSubjectDeck(String string) {
+        return currentSubjectDeck;
     }
 }

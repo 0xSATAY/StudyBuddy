@@ -35,9 +35,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String NUMBER_OF_CARDS_STUDIED = "cardsstudied";
     private static final String TOTAL_NUMBER_OF_CARDS = "totalcards";
 
+    private static DatabaseHandler mInstance = null;
+
     public DatabaseHandler(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VER);
+        super(context,DATABASE_NAME,null,DATABASE_VER);
     }
+
+    public static DatabaseHandler getInstance(Context context) {
+        if (mInstance==null){
+            mInstance = new DatabaseHandler(context.getApplicationContext());
+        }
+        return mInstance;
+    }
+
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
@@ -68,6 +78,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         contentValues.put(KEY_BACK,back);
 
         db.insert(TABLE_NAME, null, contentValues);
+        cursor.close();
         db.close();
     }
 
@@ -82,6 +93,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 subjects.add(subject);
             } while (cursor.moveToNext());
         }
+        cursor.close();
         db.close();
         return subjects;
     }
@@ -98,6 +110,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 subjects.add(subject.getSubjectTitle());
             } while (cursor.moveToNext());
         }
+        cursor.close();
         db.close();
         return subjects;
     }
@@ -113,6 +126,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         } else {
             db.execSQL(addQueryIfNothing);
         }
+        cursor.close();
         db.close();
         return true;
     }
